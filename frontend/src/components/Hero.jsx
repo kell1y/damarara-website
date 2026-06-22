@@ -60,7 +60,7 @@ export default function Hero() {
           </h1>
           <p className="mt-3 text-[13px] leading-relaxed text-[#dcd5d3] sm:text-sm">
             Hand-picked in Rwanda&apos;s misty highlands and crafted with
-            care &mdash; every cup carries the richness of volcanic soil and
+            care; every cup carries the richness of volcanic soil and
             generations of farming tradition.
           </p>
           <div className="mt-4 flex flex-wrap gap-3">
@@ -68,13 +68,13 @@ export default function Hero() {
               href="#"
               className="rounded-full bg-linear-to-br from-[#e07748] to-[#cc5832] px-5 py-2.5 text-xs font-bold tracking-wide text-white shadow-lg shadow-[#cc5832]/35 transition-transform hover:-translate-y-0.5"
             >
-              Explore Products
+              Order Now
             </a>
             <a
               href="#"
               className="rounded-full border border-white/40 px-5 py-2.5 text-xs font-bold tracking-wide text-white transition-colors hover:border-[#e07748] hover:text-[#e07748]"
             >
-              Our Story
+              Contact Us
             </a>
           </div>
         </div>
