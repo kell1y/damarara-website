@@ -1,12 +1,197 @@
 @import "tailwindcss";
 
+html, body {
+  background-color: #0f0c11;
+}
+
+/* ─ Navbar entrance ─ */
+@keyframes nav-enter {
+  from { transform: translateY(-24px); opacity: 0; }
+  to   { transform: translateY(0);     opacity: 1; }
+}
+
+/* ─ Page transition ─ */
+@keyframes page-enter {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─ Legacy ─ */
 @keyframes slide-up {
-  from {
-    opacity: 0;
-    transform: translateX(-100%);
-  }
+  from { opacity: 0; transform: translateX(-100%); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ══════════════════════════════════════
+   ENTRANCE ANIMATIONS
+══════════════════════════════════════ */
+
+/* 1. Smooth blur entrance */
+@keyframes blur-in {
+  from { filter: blur(18px); opacity: 0; }
+  to   { filter: blur(0px);  opacity: 1; }
+}
+
+/* 2. Fade-up */
+@keyframes fade-up-hero {
+  from { opacity: 0; transform: translateY(34px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* 3. Directional fades */
+@keyframes fade-left {
+  from { opacity: 0; transform: translateX(-52px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes fade-right {
+  from { opacity: 0; transform: translateX(52px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* 4. Image clip-path reveal (left → right wipe) */
+@keyframes img-reveal {
+  from { clip-path: inset(0 100% 0 0 round 16px); }
+  to   { clip-path: inset(0 0%   0 0 round 16px); }
+}
+
+/* 5. Divider bar width expand */
+@keyframes bar-expand {
+  from { width: 0;    opacity: 0; }
+  to   { width: 4rem; opacity: 1; }
+}
+
+/* 6. Border height grow (top → bottom) */
+@keyframes bar-height {
+  from { height: 0; }
+  to   { height: 100%; }
+}
+
+/* ══════════════════════════════════════
+   CONTINUOUS / LOOPING ANIMATIONS
+══════════════════════════════════════ */
+
+/* Auto-rotate ring */
+@keyframes rotate-ring {
+  to { transform: rotate(360deg); }
+}
+
+/* Horizontal ticker */
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* Bounce scroll indicator */
+@keyframes bounce-scroll {
+  0%, 100% { transform: translateY(0);    opacity: 0.5; }
+  50%       { transform: translateY(10px); opacity: 1;   }
+}
+
+/* Ken Burns (slow zoom on background images) */
+@keyframes ken-burns {
+  from { transform: scale(1)    translateZ(0); }
+  to   { transform: scale(1.08) translateZ(0); }
+}
+
+/* ══════════════════════════════════════
+   SCROLL-DRIVEN (animation-range)
+══════════════════════════════════════ */
+
+/* Shared exit keyframe used by both scroll drivers below */
+@keyframes scroll-exit {
   to {
-    opacity: 1;
-    transform: translateX(0);
+    opacity: 0;
+    transform: translateY(-52px);
+    filter: blur(10px);
   }
+}
+
+/* Hero page — exits as user scrolls (scroll() root timeline) */
+@supports (animation-timeline: scroll()) {
+  .hero-scroll-exit {
+    animation: scroll-exit linear both;
+    animation-timeline: scroll();
+    animation-range: 0vh 48vh;
+  }
+}
+
+/* Section hero text — exits as section scrolls past viewport (view() timeline) */
+@supports (animation-timeline: view()) {
+  .section-hero-exit {
+    animation: scroll-exit linear both;
+    animation-timeline: view();
+    animation-range: exit 0% exit 65%;
+  }
+}
+
+/* ══════════════════════════════════════
+   SCROLL REVEAL (all pages)
+══════════════════════════════════════ */
+
+[data-reveal] {
+  opacity: 0;
+  transition:
+    opacity   0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    filter    0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    clip-path 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-reveal="up"]    { transform: translateY(44px); }
+[data-reveal="left"]  { transform: translateX(-44px); }
+[data-reveal="right"] { transform: translateX(44px); }
+[data-reveal="fade"]  { transform: none; }
+
+/* Smooth blur reveal */
+[data-reveal="blur"] {
+  transform: translateY(22px);
+  filter: blur(12px);
+}
+
+[data-reveal].is-revealed {
+  opacity: 1;
+  transform: translate(0, 0);
+  filter: blur(0);
+}
+
+/* ══════════════════════════════════════
+   COMPONENT-SPECIFIC REVEAL CLASSES
+══════════════════════════════════════ */
+
+/* Scroll progress bar — fills as user scrolls page (animation-range: 0% 100%) */
+@keyframes progress-grow {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+.scroll-progress {
+  transform: scaleX(0);
+  transform-origin: left;
+}
+@supports (animation-timeline: scroll()) {
+  .scroll-progress {
+    animation: progress-grow linear both;
+    animation-timeline: scroll();
+    animation-range: 0% 100%;
+  }
+}
+
+/* Product image left→right wipe — parent-triggered (avoids nested data-reveal) */
+.product-img {
+  clip-path: inset(0 100% 0 0 round 10px);
+  transition:
+    clip-path 0.85s 0.1s cubic-bezier(0.22, 1, 0.36, 1),
+    transform  0.5s  cubic-bezier(0.4, 0, 0.2, 1);
+}
+[data-reveal].is-revealed .product-img {
+  clip-path: inset(0 0% 0 0 round 10px);
+}
+
+/* Founder photo circle reveal — triggered by PARENT's is-revealed,
+   not nested data-reveal (avoids opacity:0 parent hiding the child) */
+.founder-photo {
+  clip-path: circle(0% at 50% 50%);
+  transition: clip-path 0.95s 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-reveal].is-revealed .founder-photo {
+  clip-path: circle(72% at 50% 50%);
 }

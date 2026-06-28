@@ -72,10 +72,10 @@ export default function Footer() {
       </div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 pt-16 pb-10 md:px-12">
-        <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="flex flex-col gap-12 lg:flex-row lg:items-start lg:justify-between">
 
           {/* ── Col 1: Brand ── */}
-          <div className="sm:col-span-2 lg:col-span-1">
+          <div>
             <Link to="/" className="mb-5 flex items-center gap-3">
               <img src={logo} alt="Damarara logo" className="h-10 w-auto rounded-md" />
               <span className="font-serif text-xl tracking-[0.3em] text-[#e07748]">DAMARARA</span>
@@ -87,7 +87,6 @@ export default function Footer() {
               farming communities.
             </p>
 
-            {/* Social icon buttons */}
             <div className="flex gap-2.5">
               {SOCIALS.map(({ Icon, href, label }) => (
                 <a
@@ -102,7 +101,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* ── Col 2: Products ── */}
+          {/* ── Col 2: Products (middle) ── */}
           <div>
             <h4 className="mb-6 text-[10px] font-bold uppercase tracking-[0.28em] text-[#e07748]">
               Products
@@ -121,7 +120,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* ── Col 3: Company ── */}
+          {/* ── Col 3: Company (far right) ── */}
           <div>
             <h4 className="mb-6 text-[10px] font-bold uppercase tracking-[0.28em] text-[#e07748]">
               Company
@@ -140,25 +139,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* ── Col 4: Follow ── */}
-          <div>
-            <h4 className="mb-6 text-[10px] font-bold uppercase tracking-[0.28em] text-[#e07748]">
-              Follow
-            </h4>
-            <ul className="space-y-3.5">
-              {SOCIALS.map(({ Icon, href, label }) => (
-                <li key={label}>
-                  <a
-                    href={href}
-                    className="flex items-center gap-2.5 text-[14px] text-[#7a6f6c] transition-colors duration-200 hover:text-[#f1ece8]"
-                  >
-                    <Icon size={14} />
-                    {label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
       </div>
 
