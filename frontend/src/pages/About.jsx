@@ -94,8 +94,6 @@ export default function About() {
               className="mb-4 inline-flex items-center gap-3 font-serif text-lg italic font-semibold text-[#e07748]"
               style={{ animation: `blur-in 1s ${EZ} 0.15s both` }}
             >
-              <span className="h-px w-7 bg-[#e07748]" />
-              Who We Are
             </span>
 
             {/* Heading — fade-up */}

@@ -108,9 +108,6 @@ export default function Products() {
             className="mb-4 inline-flex items-center gap-3 font-serif text-base italic font-semibold text-[#e07748]"
             style={{ animation: `blur-in 1s ${EZ} 0.1s both` }}
           >
-            <span className="h-px w-6 bg-[#e07748]" />
-            Straight from Rwanda's Northern Hills
-            <span className="h-px w-6 bg-[#e07748]" />
           </span>
 
           {/* Fade-up on heading */}
